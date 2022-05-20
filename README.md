@@ -1,70 +1,52 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React App deployed on AWS using services like S3 , Route53 , CloudFront and securing Site using SSL certificates: 
 
-## Available Scripts
+NOTE : I've used this react "expense-tracker-app" for this AWS project . 
 
-In the project directory, you can run:
+
+# STEPS :
+
+1.  Setup ANY sample react App on your computer : 
+
+### `npx create-react-app my-appname`
+In the react-project directory, run:
 
 ### `npm start`
+Runs the app in the development mode. Open [http://localhost:3000] to view the sample react app in your browser.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### `npm run build` 
+Builds the app for production to the `build` folder.The build is minified . 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2. S3 :
 
-### `npm test`
+> Create 2 S3 buckets with names "example.com" and "www.example.com"
+Note : Enable bucket versioning 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+> For s3://www.example.com -> enable public access and static site properties using HTTPS and Upload "BUILD" FOLDER from REACT DIR. to this S3
+Also setup bucket policy to allow action: GetObject .
 
-### `npm run build`
+> For s3://example.com -> enable static site properties using HTTPS and set redirection to bucket "www.example.com" 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Note: All files related to React app are stored in S3 bucket "www.example.com" only . 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. SSL Certificates to secure our Domains/website :
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+> Prerequisites : Setup hosted zone to be used for deploying your app in Route53 .
 
-### `npm run eject`
+> Create [request from aws] 1 SSL certificate in "north-virginia region" to be used with CloudFront for domain names : "www.example.com" and "example.com" .
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+> Validate it using your DNS , by setting up CNAME records (manually/automatically) in Route53 . After the certificate's status changes to 'issued' you're good to go !!
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. CloudFront:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+> Create 2 cloudFronts setting origin as static website URL of S3 "www.example.com", and setup additional domain names for as "www.example.com" for one and "www.example.com" for other distribution . 
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+> Other settings : viewer's automatic redirection from "http" to "https" , Attach ssl certificate created in the previous step to both the distributions . 
 
-## Learn More
+5. ROUTE53: 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+> Setup 2 records with simple routing policy using 'Alias' option :"example.com" and "www.example.com" which points to their respective CloudFront aliases.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# ALL DONE !! 
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+You can access "www.example.com" or "example.com" from your browser .Notice : It is secured using SSL i.e. you're being redirected to https secured site.
