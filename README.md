@@ -27,7 +27,7 @@ Also setup bucket policy to allow action: GetObject .
 
 > For s3://example.com -> enable static site properties using HTTPS and set redirection to bucket "www.example.com" 
 
-# Note: All files related to React app are stored in S3 bucket "www.example.com" only . 
+> Note: All files related to React app are stored in S3 bucket "www.example.com" only . 
 
 3. SSL Certificates to secure our Domains/website :
 
@@ -47,6 +47,6 @@ Also setup bucket policy to allow action: GetObject .
 
 > Setup 2 records with simple routing policy using 'Alias' option :"example.com" and "www.example.com" which points to their respective CloudFront aliases.
 
-# ALL DONE !! 
+### ALL DONE !! 
 
 You can access "www.example.com" or "example.com" from your browser .Notice : It is secured using SSL i.e. you're being redirected to https secured site.
