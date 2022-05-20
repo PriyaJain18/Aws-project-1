@@ -39,7 +39,7 @@ Also setup bucket policy to allow action: GetObject .
 
 4. CloudFront:
 
-> Create 2 cloudFronts setting origin as static website URL of S3 "www.example.com", and setup additional domain names for as "www.example.com" for one and "www.example.com" for other distribution . 
+> Create 2 cloudFronts setting origin as static website URL of S3 `www.example.com`, and setup additional domain names for as `www.example.com` for one and `www.example.com` for other distribution . 
 
 > Other settings : viewer's automatic redirection from "http" to "https" , Attach ssl certificate created in the previous step to both the distributions . 
 
