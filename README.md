@@ -25,9 +25,8 @@ Builds the app for production to the `build` folder.The build is minified .
 Note : Enable bucket versioning 
 
 > For s3://www.example.com -> enable public access and static site properties using HTTPS and Upload "BUILD" FOLDER from REACT DIR. to this S3
-Also setup bucket policy to allow action: GetObject .
-
-> For s3://example.com -> enable static site properties using HTTPS and set redirection to bucket `www.example.com` 
+  Also setup bucket policy to allow action: GetObject .
+  For s3://example.com -> enable static site properties using HTTPS and set redirection to bucket `www.example.com` 
 
 > Note: All files related to React app are stored in S3 bucket `www.example.com` only . 
 
@@ -36,14 +35,12 @@ Also setup bucket policy to allow action: GetObject .
 > Prerequisites : Setup hosted zone to be used for deploying your app in Route53 .
 
 > Create [request from aws] 1 SSL certificate in "north-virginia region" to be used with CloudFront for domain names : `www.example.com` and `example.com` .
-
-> Validate it using your DNS , by setting up CNAME records (manually/automatically) in Route53 . After the certificate's status changes to 'issued' you're good to go !!
+  Validate it using your DNS , by setting up CNAME records (manually/automatically) in Route53 . After the certificate's status changes to 'issued' you're good to go !!
 
 4. CloudFront:
 
 > Create 2 cloudFronts setting origin as static website URL of S3 `www.example.com`, and setup additional domain names for as `www.example.com` for one and `www.example.com` for other distribution . 
-
-> Other settings : viewer's automatic redirection from "http" to "https" , Attach ssl certificate created in the previous step to both the distributions . 
+ Other settings : viewer's automatic redirection from "http" to "https" , Attach ssl certificate created in the previous step to both the distributions . 
 
 5. ROUTE53: 
 
@@ -52,3 +49,5 @@ Also setup bucket policy to allow action: GetObject .
 ### ALL DONE !! 
 
 You can access your application using `www.example.com` or `example.com` from your browser .Notice : It is secured using SSL i.e. you're being redirected to https secured site.
+
+
