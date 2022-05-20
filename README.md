@@ -4,16 +4,19 @@ React App deployed on AWS using services like S3 , Route53 , CloudFront and secu
 NOTE : I've used this react "expense-tracker-app" for this AWS project . 
 
 
-# STEPS :
+## STEPS :
 
 1.  Setup ANY sample react App on your computer : 
 
+>
 ### `npx create-react-app my-appname`
 In the react-project directory, run:
 
+>
 ### `npm start`
 Runs the app in the development mode. Open [http://localhost:3000] to view the sample react app in your browser.
 
+>
 ### `npm run build` 
 Builds the app for production to the `build` folder.The build is minified . 
 
