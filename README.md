@@ -1,8 +1,7 @@
 
 React App deployed on AWS using services like S3 , Route53 , CloudFront and securing Site using SSL certificates: 
 
-NOTE : I've used this react "expense-tracker-app" for this AWS project . 
-
+Note: I've used this react "expense-tracker-app" for this AWS project .I am using aws free-tier so had to remove the project from the account. Following is only the implementation steps .  
 
 ## STEPS :
 
